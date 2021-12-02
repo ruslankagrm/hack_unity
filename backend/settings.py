@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rostelecom',
+    'unity_app',
 
 ]
 
@@ -94,9 +94,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'rostelecom_design',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'unity_app',
+        'USER': 'postgres1',
+        'PASSWORD': 'postgres1',
         'HOST': '0.0.0.0',
         'PORT': 5432
     }
