@@ -5,16 +5,16 @@ volumes:
     pgdata:
         driver: local
 services:
-    node:
-      restart: always
-      image: node:latest
-      expose:
-        - 8999
-      ports:
-        - 8999:8999
-      volumes:
-        - ./websocket:/srv/www/rostelecom/websocket
-      command: node /srv/www/rostelecom/websocket/index.js
+#    node:
+#      restart: always
+#      image: node:latest
+#      expose:
+#        - 8999
+#      ports:
+#        - 8999:8999
+#      volumes:
+#        - ./websocket:/srv/www/rostelecom/websocket
+#      command: node /srv/www/rostelecom/websocket/index.js
 
     nginx:
 # при падении будет стараться подняться
@@ -29,9 +29,9 @@ services:
           - "80:8080"
 # монтируем только те директории, в которых лежит статика, т.к. nginx с динамикой не будет работать. Также директорию с логами и файл настройки, который мы подготовили.
         volumes:
-            - ./static:/srv/www/rostelecom/static
-            - ./media:/srv/www/rostelecom/media
-            - ./logs:/srv/www/rostelecom/logs
+            - ./static:/srv/www/unity/static
+            - ./media:/srv/www/unity/media
+            - ./logs:/srv/www/unity/logs
             - ./nginx:/etc/nginx/conf.d
 # и nginx зависит от контейнера python. Т.е. python должен быть запущен первым
         depends_on:
@@ -44,7 +44,7 @@ services:
             dockerfile: ./Dockerfile
 # монтируем директорию проекта
         volumes:
-            - ./:/srv/www/rostelecom
+            - ./:/srv/www/unity
         expose:
           - 8000
         ports:
@@ -57,9 +57,9 @@ services:
         ports:
             - 5432:5432
         environment:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
-            POSTGRES_DB: rostelecom_design
+            POSTGRES_USER: postgres1
+            POSTGRES_PASSWORD: postgres1
+            POSTGRES_DB: unity_app
             PGDATA: /var/lib/postgresql/data
         volumes:
             - pgdata:/var/lib/postgresql/data
