@@ -1,0 +1,8 @@
+---
+- name: Set up instance
+  hosts: webserver
+  remote_user: rgayanov
+  become: yes
+  roles:
+    - clone
+#    - docker
