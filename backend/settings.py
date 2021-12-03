@@ -97,7 +97,8 @@ DATABASES = {
         'NAME': 'unity_app',
         'USER': 'postgres1',
         'PASSWORD': 'postgres1',
-        'HOST': 'postgres',
+        'HOST': 'localhost',
+        # 'HOST': 'postgres',
         'PORT': 5432
     }
 }

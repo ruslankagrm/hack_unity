@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework.views import APIView, Response
 
+from unity_app.managers.flight_report_manager import FlightReportManager
 from unity_app.managers.questions_manager import QuestionManager
 from unity_app.managers.results_manager import ResultManager
 from unity_app.managers.tests_manager import TestsManager
@@ -74,4 +75,27 @@ class TestsDetailedView(APIView):
 class ResultsView(APIView):
     def get(self, request):
         result = ResultManager().get()
+        return Response(status=200, data=result)
+
+
+class FlightReportView(APIView):
+    def get(self, request):
+        if request.data.get("all"):
+            result = FlightReportManager().get_reports_by_user_guid(request)
+            return Response(status=200, data=result)
+        if request.data.get("last"):
+            result = FlightReportManager().get_last_report_by_user_guid(request)
+            return Response(status=200, data=result)
+
+    def post(self, request):
+        result = FlightReportManager().post(request=request)
+        return Response(status=200, data=result)
+
+
+class RatingView(APIView):
+    def get(self):
+        users = UserManager().model.objects.order_by("result").all()
+        result = []
+        for user in users:
+            result.append({user.name: user.result})
         return Response(status=200, data=result)

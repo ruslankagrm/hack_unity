@@ -49,3 +49,19 @@ class Results(models.Model):
 
     class Meta:
         db_table = 'results'
+
+
+class FlightReport(models.Model):
+    guid = models.UUIDField(primary_key=True, db_index=True, default=uuid.uuid4)
+    user = models.ForeignKey(ProjectUser, on_delete=models.PROTECT, related_name="flight_report")
+    max_speed = models.CharField(max_length=255, null=True)
+    danger_close = models.CharField(max_length=255, null=True)
+    hits = models.CharField(max_length=255, null=True)
+    max_height = models.CharField(max_length=255, null=True)
+    time = models.CharField(max_length=255, null=True)
+    status = models.CharField(max_length=255, null=True)
+    points = models.CharField(max_length=255, null=True)
+
+    class Meta:
+        db_table = 'flight_reports'
+
