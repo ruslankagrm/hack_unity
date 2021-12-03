@@ -78,7 +78,7 @@ class TestsDetailedView(APIView):
         user_id = data.get("user")
         # это должны быть ansewers id = variant_id
         result = VariantManager().check(answers_ids=answers_chosen)
-        user = UserManager().update_result(guid=guid, result=result)
+        user = UserManager().update_result(guid=user_id, result=result)
         response_data = {"user": user.guid,
                          "name": user.name,
                          "result": user.result}
