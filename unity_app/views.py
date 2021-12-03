@@ -66,6 +66,7 @@ class TestsDetailedView(APIView):
         result = VariantManager().check(answers_ids=answers_chosen)
         user = UserManager().update_result(guid=guid, result=result)
         response_data = {"user": user.guid,
+                         "name": user.name,
                          "result": user.result}
         return Response(status=200, data=response_data)
 
