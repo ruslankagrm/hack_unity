@@ -14,7 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
+
 # from unity_app.views import ProjectView, ProjectDetailView
+from unity_app.views import UserView, TestsView, TestsDetailedView
 
 urlpatterns = [
+    path('api/user/<guid>', UserView.as_view()),
+    path('api/tests/', TestsView.as_view()),
+    path('api/test/<guid>', TestsDetailedView.as_view()),
 ]
