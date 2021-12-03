@@ -14,9 +14,16 @@ class UserManager:
             return result
 
     def post(self, name):
+        result = {"guid": None,
+                  "name": None}
+        if self.model.objects.filter(name=name).first():
+            instance = self.model.objects.get(name=name)
+            result["guid"] = instance.guid
+            result["name"] = instance.name
+            return result
         instance = self.model.objects.create(name=name)
-        result = {"guid": instance.guid,
-                  "name": instance.name}
+        result["guid"] = instance.guid
+        result["name"] = instance.name
         return result
 
     def patch(self, data):
