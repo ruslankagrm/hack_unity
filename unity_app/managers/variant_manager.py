@@ -21,7 +21,7 @@ class VariantManager:
 
     def get_all(self):
         variants = self.model.objects.all()
-        return variants.data
+        return variants
 
     def check(self, answers_ids):
         # 4 вопроса по 4 варика
