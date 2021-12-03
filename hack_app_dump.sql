@@ -372,7 +372,8 @@ CREATE TABLE public.flight_reports (
     max_speed character varying(255),
     points character varying(255),
     status character varying(255),
-    "time" character varying(255)
+    "time" character varying(255),
+    loose_connection character varying(255)
 );
 
 
@@ -656,6 +657,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 19	unity_app	0001_initial	2021-12-03 03:49:18.725432+05
 20	unity_app	0002_flightreport	2021-12-03 22:56:56.847761+05
 21	unity_app	0003_auto_20211203_1806	2021-12-03 23:06:32.176665+05
+22	unity_app	0004_flightreport_loose_connection	2021-12-04 00:17:14.494353+05
 \.
 
 
@@ -671,7 +673,7 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 -- Data for Name: flight_reports; Type: TABLE DATA; Schema: public; Owner: postgres1
 --
 
-COPY public.flight_reports (guid, user_id, danger_close, hits, max_height, max_speed, points, status, "time") FROM stdin;
+COPY public.flight_reports (guid, user_id, danger_close, hits, max_height, max_speed, points, status, "time", loose_connection) FROM stdin;
 \.
 
 
@@ -689,10 +691,6 @@ cd78973b-ab18-4293-990f-3984fafde4ae	Jhon	\N
 --
 
 COPY public.questions (guid, name, test_id_id) FROM stdin;
-32862672-f0fa-4087-983e-956b1cc0fb13	В каких единицах измеряется давление в системе СИ:	32862672-f0fa-4087-983e-956b1cc0fbf1
-32862672-f0fa-4087-983e-956b1cc0fb12	Понятию аэродинамика соответствует это понятие:	32862672-f0fa-4087-983e-956b1cc0fbf1
-32862672-f0fa-4087-983e-956b1cc0fb11	Природа вязкости жидкости и воздуха равная. Если температура растёт	32862672-f0fa-4087-983e-956b1cc0fbf1
-32862672-f0fa-4087-983e-956b1cc0fb10	Атмосферным давлением называют давление	32862672-f0fa-4087-983e-956b1cc0fbf1
 32862672-f0fa-4087-983e-956b1cc0fb23	Как определяется аэронавигационный запас при принятии решения на вылет без ЗА?	32862672-f0fa-4087-983e-956b1cc0fbf2
 32862672-f0fa-4087-983e-956b1cc0fb25	По какой формуле рассчитывается возможная коммерческая загрузка?\n	32862672-f0fa-4087-983e-956b1cc0fbf2
 32862672-f0fa-4087-983e-956b1cc0fb24	Что называется рубежом ухода (возврата)?	32862672-f0fa-4087-983e-956b1cc0fbf2
@@ -714,7 +712,6 @@ COPY public.results (guid, result, user_id_id) FROM stdin;
 
 COPY public.tests (guid, name) FROM stdin;
 32862672-f0fa-4087-983e-956b1cc0fbf2	Основы воздушной навигации 
-32862672-f0fa-4087-983e-956b1cc0fbf1	Аэродинамика
 \.
 
 
@@ -723,22 +720,6 @@ COPY public.tests (guid, name) FROM stdin;
 --
 
 COPY public.variants (guid, name, is_answer, question_id_id) FROM stdin;
-50862672-f0fa-4087-983e-956b1cc0fbf1	Па/м кв\n	f	32862672-f0fa-4087-983e-956b1cc0fb13
-51862672-f0fa-4087-983e-956b1cc0fbf1	Кг/м кв	f	32862672-f0fa-4087-983e-956b1cc0fb13
-52862672-f0fa-4087-983e-956b1cc0fbf1	Н/м кв	t	32862672-f0fa-4087-983e-956b1cc0fb13
-53862672-f0fa-4087-983e-956b1cc0fbf1	кг	f	32862672-f0fa-4087-983e-956b1cc0fb13
-61862672-f0fa-4087-983e-956b1cc0fbf1	наука о движении летательных аппаратов	f	32862672-f0fa-4087-983e-956b1cc0fb12
-62862672-f0fa-4087-983e-956b1cc0fbf1	наука о движении воздуха и механическом взаимодействии между воздушным потоком и обтекаемыми телами	t	32862672-f0fa-4087-983e-956b1cc0fb12
-63862672-f0fa-4087-983e-956b1cc0fbf1	наука о обтекаемости тел	f	32862672-f0fa-4087-983e-956b1cc0fb12
-64862672-f0fa-4087-983e-956b1cc0fbf1	нет такой науки	f	32862672-f0fa-4087-983e-956b1cc0fb12
-11862672-f0fa-4087-983e-956b1cc0fbf1	вязкость воздуха увеличивается	t	32862672-f0fa-4087-983e-956b1cc0fb11
-12862672-f0fa-4087-983e-956b1cc0fbf1	вязкость воздуха уменьшается	f	32862672-f0fa-4087-983e-956b1cc0fb11
-13862672-f0fa-4087-983e-956b1cc0fbf1	вязкость жидкости увеличивается\n	f	32862672-f0fa-4087-983e-956b1cc0fb11
-14862672-f0fa-4087-983e-956b1cc0fbf1	никак	f	32862672-f0fa-4087-983e-956b1cc0fb11
-21862672-f0fa-4087-983e-956b1cc0fbf1	массой вышележащих слоёв воздуха и ударами хаотически движущихся молекул	t	32862672-f0fa-4087-983e-956b1cc0fb10
-22862672-f0fa-4087-983e-956b1cc0fbf1	ударами хаотически движущихся молекул	f	32862672-f0fa-4087-983e-956b1cc0fb10
-23862672-f0fa-4087-983e-956b1cc0fbf1	массой вышележащих слоёв воздуха	f	32862672-f0fa-4087-983e-956b1cc0fb10
-24862672-f0fa-4087-983e-956b1cc0fbf1	массой слюбых слоев	f	32862672-f0fa-4087-983e-956b1cc0fb10
 31862672-f0fa-4087-983e-956b1cc0fbf1	По таблице в РЛЭ или по формуле Q анз = Q з.а. + Qкр.	f	32862672-f0fa-4087-983e-956b1cc0fb23
 32862672-f0fa-4087-983e-956b1cc0fbf1	Согласно методических рекомендаций по расчету топлива	t	32862672-f0fa-4087-983e-956b1cc0fb23
 33862672-f0fa-4087-983e-956b1cc0fbf1	30 % от общего запаса топлива на полет30 % от общего запаса топлива на полет	f	32862672-f0fa-4087-983e-956b1cc0fb23
@@ -751,6 +732,10 @@ COPY public.variants (guid, name, is_answer, question_id_id) FROM stdin;
 42862672-f0fa-4087-983e-956b1cc0fbf1	Рубеж, в случае ухода с которого запас топлива на борту ВС к Трасч прилета был равен Qпосадки.\n	f	32862672-f0fa-4087-983e-956b1cc0fb24
 43862672-f0fa-4087-983e-956b1cc0fbf1	Рубеж, с которого начинается заход на посадку на ЗА, а запас топлива на борту ВС обеспечил 60мин полета.\n	f	32862672-f0fa-4087-983e-956b1cc0fb24
 44862672-f0fa-4087-983e-956b1cc0fbf1	Рубеж, с которого начинается заход на посадку, а запас топлива на борту ВС обеспечил 120мин полета на высоте круга.\n	t	32862672-f0fa-4087-983e-956b1cc0fb24
+12862671-f0fa-4087-983e-956b1cc0fbf1	По таблице в РЛЭ или по формуле Q анз = Q з.а. + Qкр.	f	32862672-f0fa-4087-983e-956b1cc0fb22
+44862673-f0fa-4087-983e-956b1cc0fbf1	Согласно методических рекомендаций по расчету топлива	f	32862672-f0fa-4087-983e-956b1cc0fb22
+44862674-f0fa-4087-983e-956b1cc0fbf1	30 % от общего запаса топлива на полет30 % от общего запаса топлива на полет.	t	32862672-f0fa-4087-983e-956b1cc0fb22
+44862675-f0fa-4087-983e-956b1cc0fbf1	По формуле Q анз = Q общ - Qпол.	f	32862672-f0fa-4087-983e-956b1cc0fb22
 \.
 
 
@@ -814,7 +799,7 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 12, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres1
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 21, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 22, true);
 
 
 --

@@ -1,9 +1,11 @@
 from django.shortcuts import render
 
 # Create your views here.
+from rest_framework.parsers import MultiPartParser
 from rest_framework.views import APIView, Response
 
 from unity_app.managers.flight_report_manager import FlightReportManager
+from unity_app.managers.pdf_manager import PDFManager
 from unity_app.managers.questions_manager import QuestionManager
 from unity_app.managers.results_manager import ResultManager
 from unity_app.managers.tests_manager import TestsManager
@@ -99,3 +101,14 @@ class RatingView(APIView):
         for user in users:
             result.append({user.name: user.result})
         return Response(status=200, data=result)
+
+
+class RatingPDFView(APIView):
+    parser_classes = [MultiPartParser]
+
+    def get(self):
+        users = UserManager().model.objects.order_by("result").all()
+        input_data = []
+        for user in users:
+            input_data.append({user.name: user.result})
+        PDFManager(input_data).get_document()

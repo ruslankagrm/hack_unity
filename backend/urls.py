@@ -27,4 +27,5 @@ urlpatterns = [
     path('api/report/last/', FlightReportView.as_view()),
     path('api/report/all/', FlightReportView.as_view()),
     path('api/rating/', RatingView.as_view()),
+    path('api/rating/pdf/', RatingView.as_view()),
 ]
