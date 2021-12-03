@@ -46,7 +46,7 @@ class UserView(APIView):
 
 
 class AllUsersView(APIView):
-    def get(self):
+    def get(self, request):
         result = []
         users = UserManager().model.objects.all()
         for user in users:

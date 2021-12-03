@@ -10,7 +10,6 @@ class QuestionManager:
         result_dict = list()
         questions_queryset = self.model.objects.filter(test_id_id=task_id).all()
         answers = []
-
         for question in questions_queryset:
             questions = VariantManager().get_all_by_question_id(question_id=question.guid)
             answers.append(questions)
