@@ -58,5 +58,5 @@ class UserManager:
         instance = self.model.objects.get(guid=guid)
         instance.result = result
         instance.save()
-        Results.objects.create(user_id=guid, result=instance.result)
+        # Results.objects.create(user_id=instance, result=instance.result)
         return instance
