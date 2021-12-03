@@ -29,7 +29,7 @@ class VariantManager:
         variants = self.get_all()
         counter = 0
         for element in variants:
-            if element in answers_ids:
+            if element in answers_ids and element.is_answer:
                 counter += 1
         result = counter * 0.125
         return result
