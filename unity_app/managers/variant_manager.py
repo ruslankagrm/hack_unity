@@ -31,7 +31,7 @@ class VariantManager:
         for element in variants:
             if element in answers_ids and element.is_answer:
                 counter += 1
-        result = counter * 0.125
+        result = (counter * 0.25) * 100
         return result
 
     def post(self):
