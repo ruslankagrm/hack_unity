@@ -51,7 +51,7 @@ class AllUsersView(APIView):
         users = UserManager().model.objects.all()
         for user in users:
             result.append(FlightReportManager().get_reports_by_user(user_guid=user.guid))
-        return Response(status=204, data=result)
+        return Response(status=200, data=result)
 
 
 class TestsView(APIView):

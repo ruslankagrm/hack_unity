@@ -13,7 +13,7 @@ class QuestionManager:
         for question in questions_queryset:
             questions = VariantManager().get_all_by_question_id(question_id=question.guid)
             answers.append(questions)
-            result_dict.append({str(question.guid): questions,
+            result_dict.append({"guid": str(question.guid), "answers": questions,
                                 "question_name": question.name})
         return result_dict
 
