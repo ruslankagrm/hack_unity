@@ -1,6 +1,8 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
+from openpyxl.writer.excel import save_virtual_workbook
 from rest_framework.parsers import MultiPartParser
 from rest_framework.views import APIView, Response
 
@@ -104,11 +106,16 @@ class RatingView(APIView):
 
 
 class RatingPDFView(APIView):
-    parser_classes = [MultiPartParser]
+    # parser_classes = [MultiPartParser]
 
-    def get(self):
+    def get(self, request):
         users = UserManager().model.objects.order_by("result").all()
         input_data = []
         for user in users:
             input_data.append({user.name: user.result})
-        PDFManager(input_data).get_document()
+        wb = PDFManager(input_data).get_document()
+        response = HttpResponse(content=save_virtual_workbook(wb),
+                                content_type='application/ms-excel',
+                                status=201)
+        response['Content-Disposition'] = f'attachment; filename=file.xls'
+        return response

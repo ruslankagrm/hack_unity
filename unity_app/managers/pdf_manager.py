@@ -31,14 +31,14 @@ class PDFManager:
         self._create_title_rows()
         self._create_data_rows()
         self.work_book.save("wb")
-        self._save_to_response()
+        return self.work_book
 
-    def _save_to_response(self):
-        response = HttpResponse(content=save_virtual_workbook(self.work_book),
-                                content_type='application/ms-excel',
-                                status=201)
-        response['Content-Disposition'] = f'attachment; filename=file.xls'
-        return response
+    # def _save_to_response(self):
+    #     response = HttpResponse(content=save_virtual_workbook(self.work_book),
+    #                             content_type='application/ms-excel',
+    #                             status=201)
+    #     response['Content-Disposition'] = f'attachment; filename=file.xls'
+    #     return response
 
     def _create_title_rows(self):
         first_row = self.work_sheet['A1']
@@ -54,7 +54,8 @@ class PDFManager:
     def _create_data_rows(self):
         counter = 2
         for element in self.input_data:
-            self.work_sheet.cell[f"A{counter}"] = element.key()
-            self.work_sheet.cell[f"B{counter}"] = element.value()
+            for key, val in element.items():
+                a = 1
+                self.work_sheet["A" + str(counter)].value = key
+                self.work_sheet["B" + str(counter)].value = val
             counter += 1
-

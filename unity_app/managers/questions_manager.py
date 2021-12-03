@@ -9,8 +9,13 @@ class QuestionManager:
     def get(self, task_id):
         result_dict = list()
         questions_queryset = self.model.objects.filter(test_id_id=task_id).all()
+        answers = []
+
         for question in questions_queryset:
-            result_dict.append({question.name: VariantManager().get_all_by_question_id(question_id=question.guid)})
+            questions = VariantManager().get_all_by_question_id(question_id=question.guid)
+            answers.append(questions)
+            result_dict.append({question.guid: questions,
+                                "question_name": question.name})
         return result_dict
 
     def get_detailed(self, guid):
