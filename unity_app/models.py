@@ -54,6 +54,7 @@ class Results(models.Model):
 class FlightReport(models.Model):
     guid = models.UUIDField(primary_key=True, db_index=True, default=uuid.uuid4)
     user = models.ForeignKey(ProjectUser, on_delete=models.PROTECT, related_name="flight_report")
+    loose_connection = models.CharField(max_length=255, null=True)
     max_speed = models.CharField(max_length=255, null=True)
     danger_close = models.CharField(max_length=255, null=True)
     hits = models.CharField(max_length=255, null=True)
