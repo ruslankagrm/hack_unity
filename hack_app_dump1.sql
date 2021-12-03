@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 13.5
+-- Dumped from database version 13.4 (Ubuntu 13.4-4.pgdg20.04+1)
 -- Dumped by pg_dump version 14.0 (Ubuntu 14.0-1.pgdg20.04+1)
 
 SET statement_timeout = 0;
@@ -372,7 +372,8 @@ CREATE TABLE public.flight_reports (
     max_speed character varying(255),
     points character varying(255),
     status character varying(255),
-    "time" character varying(255)
+    "time" character varying(255),
+    loose_connection character varying(255)
 );
 
 
@@ -571,6 +572,10 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 42	Can change results	11	change_results
 43	Can delete results	11	delete_results
 44	Can view results	11	view_results
+45	Can add flight report	12	add_flightreport
+46	Can change flight report	12	change_flightreport
+47	Can delete flight report	12	delete_flightreport
+48	Can view flight report	12	view_flightreport
 \.
 
 
@@ -622,6 +627,7 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 9	unity_app	tests
 10	unity_app	variants
 11	unity_app	results
+12	unity_app	flightreport
 \.
 
 
@@ -630,25 +636,28 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 --
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
-1	contenttypes	0001_initial	2021-12-02 22:49:18.214654+00
-2	auth	0001_initial	2021-12-02 22:49:18.373933+00
-3	admin	0001_initial	2021-12-02 22:49:18.431593+00
-4	admin	0002_logentry_remove_auto_add	2021-12-02 22:49:18.457205+00
-5	admin	0003_logentry_add_action_flag_choices	2021-12-02 22:49:18.479553+00
-6	contenttypes	0002_remove_content_type_name	2021-12-02 22:49:18.496746+00
-7	auth	0002_alter_permission_name_max_length	2021-12-02 22:49:18.504712+00
-8	auth	0003_alter_user_email_max_length	2021-12-02 22:49:18.512232+00
-9	auth	0004_alter_user_username_opts	2021-12-02 22:49:18.51923+00
-10	auth	0005_alter_user_last_login_null	2021-12-02 22:49:18.526631+00
-11	auth	0006_require_contenttypes_0002	2021-12-02 22:49:18.52962+00
-12	auth	0007_alter_validators_add_error_messages	2021-12-02 22:49:18.536373+00
-13	auth	0008_alter_user_username_max_length	2021-12-02 22:49:18.55459+00
-14	auth	0009_alter_user_last_name_max_length	2021-12-02 22:49:18.579389+00
-15	auth	0010_alter_group_name_max_length	2021-12-02 22:49:18.592025+00
-16	auth	0011_update_proxy_permissions	2021-12-02 22:49:18.600184+00
-17	auth	0012_alter_user_first_name_max_length	2021-12-02 22:49:18.607419+00
-18	sessions	0001_initial	2021-12-02 22:49:18.628474+00
-19	unity_app	0001_initial	2021-12-02 22:49:18.725432+00
+1	contenttypes	0001_initial	2021-12-03 03:49:18.214654+05
+2	auth	0001_initial	2021-12-03 03:49:18.373933+05
+3	admin	0001_initial	2021-12-03 03:49:18.431593+05
+4	admin	0002_logentry_remove_auto_add	2021-12-03 03:49:18.457205+05
+5	admin	0003_logentry_add_action_flag_choices	2021-12-03 03:49:18.479553+05
+6	contenttypes	0002_remove_content_type_name	2021-12-03 03:49:18.496746+05
+7	auth	0002_alter_permission_name_max_length	2021-12-03 03:49:18.504712+05
+8	auth	0003_alter_user_email_max_length	2021-12-03 03:49:18.512232+05
+9	auth	0004_alter_user_username_opts	2021-12-03 03:49:18.51923+05
+10	auth	0005_alter_user_last_login_null	2021-12-03 03:49:18.526631+05
+11	auth	0006_require_contenttypes_0002	2021-12-03 03:49:18.52962+05
+12	auth	0007_alter_validators_add_error_messages	2021-12-03 03:49:18.536373+05
+13	auth	0008_alter_user_username_max_length	2021-12-03 03:49:18.55459+05
+14	auth	0009_alter_user_last_name_max_length	2021-12-03 03:49:18.579389+05
+15	auth	0010_alter_group_name_max_length	2021-12-03 03:49:18.592025+05
+16	auth	0011_update_proxy_permissions	2021-12-03 03:49:18.600184+05
+17	auth	0012_alter_user_first_name_max_length	2021-12-03 03:49:18.607419+05
+18	sessions	0001_initial	2021-12-03 03:49:18.628474+05
+23	unity_app	0001_initial	2021-12-04 02:47:53.571076+05
+24	unity_app	0002_flightreport	2021-12-04 02:47:53.597082+05
+25	unity_app	0003_auto_20211203_1806	2021-12-04 02:47:53.649221+05
+26	unity_app	0004_flightreport_loose_connection	2021-12-04 02:47:53.654892+05
 \.
 
 
@@ -664,7 +673,7 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 -- Data for Name: flight_reports; Type: TABLE DATA; Schema: public; Owner: postgres1
 --
 
-COPY public.flight_reports (guid, user_id, danger_close, hits, max_height, max_speed, points, status, "time") FROM stdin;
+COPY public.flight_reports (guid, user_id, danger_close, hits, max_height, max_speed, points, status, "time", loose_connection) FROM stdin;
 \.
 
 
