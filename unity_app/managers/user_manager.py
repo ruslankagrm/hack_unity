@@ -1,9 +1,9 @@
-from unity_app.models import Questions, Results
+from unity_app.models import Questions, Results, ProjectUser
 
 
 class UserManager:
     def __init__(self):
-        self.model = Questions
+        self.model = ProjectUser
 
     def get(self, guid):
         if guid:

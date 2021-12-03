@@ -10,8 +10,8 @@ class TestsManager:
         instance = self.model.objects.all()
         result = []
         for element in instance:
-            result.append({"guid": instance.guid,
-                           "name": instance.name, })
+            result.append({"guid": element.guid,
+                           "name": element.name, })
         return result
 
     def delete(self, guid):

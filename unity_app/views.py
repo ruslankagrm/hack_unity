@@ -16,7 +16,7 @@ class UserView(APIView):
         data = UserManager().get(guid=guid)
         return Response(status=200, data=data)
 
-    def post(self, request, guid):
+    def post(self, request):
         data = request.data
         if data:
             name = data.get("name")
