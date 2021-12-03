@@ -360,6 +360,25 @@ CREATE TABLE public.django_session (
 ALTER TABLE public.django_session OWNER TO postgres1;
 
 --
+-- Name: flight_reports; Type: TABLE; Schema: public; Owner: postgres1
+--
+
+CREATE TABLE public.flight_reports (
+    guid uuid NOT NULL,
+    user_id uuid NOT NULL,
+    danger_close character varying(255),
+    hits character varying(255),
+    max_height character varying(255),
+    max_speed character varying(255),
+    points character varying(255),
+    status character varying(255),
+    "time" character varying(255)
+);
+
+
+ALTER TABLE public.flight_reports OWNER TO postgres1;
+
+--
 -- Name: projects_user; Type: TABLE; Schema: public; Owner: postgres1
 --
 
@@ -552,6 +571,10 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 42	Can change results	11	change_results
 43	Can delete results	11	delete_results
 44	Can view results	11	view_results
+45	Can add flight report	12	add_flightreport
+46	Can change flight report	12	change_flightreport
+47	Can delete flight report	12	delete_flightreport
+48	Can view flight report	12	view_flightreport
 \.
 
 
@@ -603,6 +626,7 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 9	unity_app	tests
 10	unity_app	variants
 11	unity_app	results
+12	unity_app	flightreport
 \.
 
 
@@ -630,6 +654,8 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 17	auth	0012_alter_user_first_name_max_length	2021-12-03 03:49:18.607419+05
 18	sessions	0001_initial	2021-12-03 03:49:18.628474+05
 19	unity_app	0001_initial	2021-12-03 03:49:18.725432+05
+20	unity_app	0002_flightreport	2021-12-03 22:56:56.847761+05
+21	unity_app	0003_auto_20211203_1806	2021-12-03 23:06:32.176665+05
 \.
 
 
@@ -638,6 +664,14 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 --
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: flight_reports; Type: TABLE DATA; Schema: public; Owner: postgres1
+--
+
+COPY public.flight_reports (guid, user_id, danger_close, hits, max_height, max_speed, points, status, "time") FROM stdin;
 \.
 
 
@@ -738,7 +772,7 @@ SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres1
 --
 
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 44, true);
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 48, true);
 
 
 --
@@ -773,14 +807,14 @@ SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres1
 --
 
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 11, true);
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 12, true);
 
 
 --
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres1
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 19, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 21, true);
 
 
 --
@@ -920,6 +954,14 @@ ALTER TABLE ONLY public.django_session
 
 
 --
+-- Name: flight_reports flight_reports_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres1
+--
+
+ALTER TABLE ONLY public.flight_reports
+    ADD CONSTRAINT flight_reports_pkey PRIMARY KEY (guid);
+
+
+--
 -- Name: projects_user projects_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres1
 --
 
@@ -1051,6 +1093,13 @@ CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session U
 
 
 --
+-- Name: flight_reports_user_id_58dd7836; Type: INDEX; Schema: public; Owner: postgres1
+--
+
+CREATE INDEX flight_reports_user_id_58dd7836 ON public.flight_reports USING btree (user_id);
+
+
+--
 -- Name: questions_test_id_id_778bbdef; Type: INDEX; Schema: public; Owner: postgres1
 --
 
@@ -1141,6 +1190,14 @@ ALTER TABLE ONLY public.django_admin_log
 
 ALTER TABLE ONLY public.django_admin_log
     ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: flight_reports flight_reports_user_id_58dd7836_fk_projects_user_guid; Type: FK CONSTRAINT; Schema: public; Owner: postgres1
+--
+
+ALTER TABLE ONLY public.flight_reports
+    ADD CONSTRAINT flight_reports_user_id_58dd7836_fk_projects_user_guid FOREIGN KEY (user_id) REFERENCES public.projects_user(guid) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
