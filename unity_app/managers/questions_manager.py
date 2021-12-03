@@ -7,10 +7,10 @@ class QuestionManager:
         self.model = Questions
 
     def get(self, task_id):
-        result_dict = dict()
-        questions_queryset = self.model.objects.filter(task_id=task_id).all()
+        result_dict = list()
+        questions_queryset = self.model.objects.filter(test_id_id=task_id).all()
         for question in questions_queryset:
-            result_dict[question.name] = VariantManager().get_all_by_question_id(question_id=question.guid)
+            result_dict.append({question.name: VariantManager().get_all_by_question_id(question_id=question.guid)})
         return result_dict
 
     def get_detailed(self, guid):

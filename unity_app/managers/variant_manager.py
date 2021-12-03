@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from unity_app.models import Questions, Variants
 
 
@@ -6,8 +8,16 @@ class VariantManager:
         self.model = Variants
 
     def get_all_by_question_id(self, question_id):
-        variants = self.model.objects.filter(question_id=question_id)
-        return variants.data
+        variants = self.model.objects.filter(question_id_id=question_id)
+        result = []
+        for element in variants:
+            result.append({
+                "guid": element.guid,
+                "name": element.name,
+                "question_id": element.question_id.guid,
+                "is_answer": element.is_answer
+            })
+        return result
 
     def get_all(self):
         variants = self.model.objects.all()

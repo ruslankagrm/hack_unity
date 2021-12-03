@@ -24,4 +24,4 @@ class TestsManager:
 
     def get_detailed(self, guid):
         questions = QuestionManager().get(task_id=guid)
-        return questions.data
+        return questions

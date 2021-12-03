@@ -22,5 +22,5 @@ urlpatterns = [
     path('api/user/', UserView.as_view()),
     path('api/user/<guid>', UserView.as_view()),
     path('api/tests/', TestsView.as_view()),
-    path('api/test/<guid>', TestsDetailedView.as_view()),
+    path('api/tests/<guid>', TestsDetailedView.as_view()),
 ]
