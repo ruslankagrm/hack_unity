@@ -33,7 +33,8 @@ class FlightReportManager:
         }
         return result
 
-    def get_reports_by_user_guid(self, guid):
+    def get_reports_by_user_guid(self, request):
+        guid = request.query_params.get("user_guid")
         result = []
         instances = self.model.objects.filter(user_id=guid).all()
         for instance in instances:
@@ -57,7 +58,7 @@ class FlightReportManager:
         return queryset
 
     def get_last_report_by_user_guid(self, request):
-        guid = request.data.get("guid")
+        guid = request.query_params.get("user_guid")
         instance = self.model.objects.filter(user_id=guid).last()
         result = {
             "report_guid": instance.guid,

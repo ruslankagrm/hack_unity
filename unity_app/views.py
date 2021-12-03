@@ -80,10 +80,10 @@ class ResultsView(APIView):
 
 class FlightReportView(APIView):
     def get(self, request):
-        if request.data.get("all"):
+        if request.query_params.get("all"):
             result = FlightReportManager().get_reports_by_user_guid(request)
             return Response(status=200, data=result)
-        if request.data.get("last"):
+        if request.query_params.get("last"):
             result = FlightReportManager().get_last_report_by_user_guid(request)
             return Response(status=200, data=result)
 

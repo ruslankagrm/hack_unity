@@ -20,12 +20,12 @@ from unity_app.views import UserView, TestsView, TestsDetailedView, FlightReport
 
 urlpatterns = [
     path('api/user/', UserView.as_view()),
-    path('api/user/<guid>', UserView.as_view()),
+    path('api/user/<guid>/', UserView.as_view()),
     path('api/tests/', TestsView.as_view()),
-    path('api/tests/<guid>', TestsDetailedView.as_view()),
+    path('api/tests/<guid>/', TestsDetailedView.as_view()),
     path('api/report/', FlightReportView.as_view()),
-    path('api/report/last', FlightReportView.as_view()),
-    path('api/report/all', FlightReportView.as_view()),
+    path('api/report/last/', FlightReportView.as_view()),
+    path('api/report/all/', FlightReportView.as_view()),
     path('api/rating/', FlightReportView.as_view()),
 
 ]
