@@ -45,6 +45,15 @@ class UserView(APIView):
             Response(status=204, data="No such user")
 
 
+class AllUsersView(APIView):
+    def get(self):
+        result = []
+        users = UserManager().model.objects.all()
+        for user in users:
+            result.append(FlightReportManager().get_reports_by_user(user_guid=user.guid))
+        Response(status=204, data=result)
+
+
 class TestsView(APIView):
     def get(self, request):
         result = TestsManager().get(request=request)

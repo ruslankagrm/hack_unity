@@ -16,10 +16,12 @@ Including another URLconf
 from django.urls import path
 
 # from unity_app.views import ProjectView, ProjectDetailView
-from unity_app.views import UserView, TestsView, TestsDetailedView, FlightReportView, RatingView, RatingPDFView
+from unity_app.views import UserView, TestsView, TestsDetailedView, FlightReportView, RatingView, RatingPDFView, \
+    AllUsersView
 
 urlpatterns = [
     path('api/user/', UserView.as_view()),
+    path('api/user/all/', AllUsersView.as_view()),
     path('api/user/<guid>/', UserView.as_view()),
     path('api/tests/', TestsView.as_view()),
     path('api/tests/<guid>/', TestsDetailedView.as_view()),

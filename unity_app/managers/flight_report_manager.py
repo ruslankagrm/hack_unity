@@ -78,3 +78,23 @@ class FlightReportManager:
             "points": instance.points,
         }
         return result
+
+    def get_reports_by_user(self, user_guid):
+        result = []
+        instances = self.model.objects.filter(user_id=user_guid).all()
+        for instance in instances:
+            result.append({
+                "report_guid": instance.guid,
+                "user_name": instance.user.name,
+                "user_guid": instance.user.guid,
+                "user_theory_result": instance.user.result,
+                "loose_connection": instance.loose_connection,
+                "max_speed": instance.max_speed,
+                "danger_close": instance.danger_close,
+                "hits": instance.hits,
+                "max_height": instance.max_height,
+                "time": instance.time,
+                "status": instance.status,
+                "points": instance.points,
+            })
+        return result
