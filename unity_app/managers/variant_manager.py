@@ -27,9 +27,12 @@ class VariantManager:
         # 4 вопроса по 4 варика
         result = int()
         variants = self.get_all()
+        variants_list = []
+        # for el in variants:
+        #     variants_list.append(str(el.guid))
         counter = 0
-        for element in variants:
-            if element in answers_ids and element.is_answer:
+        for element in variants_list:
+            if element.guid in answers_ids and element.is_answer:
                 counter += 1
         result = (counter * 0.25) * 100
         return result
