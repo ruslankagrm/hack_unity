@@ -45,11 +45,13 @@ class PDFManager:
         first_row.font = title_font
         first_row.alignment = title_alignment
         first_row.value = "Имя пользователя"
+        self.work_sheet.column_dimensions['A'].width = 20
 
-        second_row = self.work_sheet['A2']
+        second_row = self.work_sheet['B2']
         second_row.font = title_font
         second_row.alignment = title_alignment
         second_row.value = "Результат"
+        self.work_sheet.column_dimensions['B'].width = 20
 
     def _create_data_rows(self):
         counter = 2
