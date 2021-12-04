@@ -27,6 +27,7 @@ class VariantManager:
         # 4 вопроса по 4 варика
         result = int()
         variants = self.get_all()
+        print(variants)
         variants_list = []
         # for el in variants:
         #     variants_list.append(str(el.guid))
