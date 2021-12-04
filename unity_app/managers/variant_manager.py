@@ -31,7 +31,7 @@ class VariantManager:
         # for el in variants:
         #     variants_list.append(str(el.guid))
         counter = 0
-        for element in variants_list:
+        for element in variants:
             if element.guid in answers_ids and element.is_answer:
                 counter += 1
         result = (counter * 0.25) * 100
